@@ -65,3 +65,15 @@ class Soccer_groups(models.Model):
 
     class Meta:
 	verbose_name = u'小组'
+
+
+class Soccers_result(models.Model):
+    group = models.CharField(max_length=100, verbose_name=u'小组')
+    time = models.DateTimeField(max_length=100, verbose_name=u'日期')
+    aname = models.CharField(max_length=100, verbose_name=u'球队A')
+    score = models.CharField(max_length=100, verbose_name=u'比分')
+    bname = models.CharField(max_length=100, verbose_name=u'球队B')
+    space = models.CharField(max_length=100, verbose_name=u'场地')
+
+    def __unicode__(self):
+	return self.group
