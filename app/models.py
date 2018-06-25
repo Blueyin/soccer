@@ -79,4 +79,4 @@ class Soccers_result(models.Model):
 	return self.group
 
     class Meta:
-        verbose_name = u'小组'
+        verbose_name = u'战绩'
