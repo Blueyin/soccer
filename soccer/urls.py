@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^$', soccer),
     url(r'^soccer/$', soccer),
     url(r'^soccer/all/rank/$', soccer_rank),
+    url(r'^soccer/all/result/$', soccer_result),
     url(r'^admin/', admin.site.urls),
 ]
