@@ -535,7 +535,7 @@ div.FixedHeader_Cloned table {
                                 <th>场地</th>
                                 </tr>
                                 {%for all_results in all_result%}
-                                {%if all_results.time == day_time.day%}
+                                {%if all_results.day == day_time.day%}
                                 <tr class="tr3">
                                     <td class="td_one">{{all_results.group}}</td>
                                     <td>{{all_results.time}}</td>
