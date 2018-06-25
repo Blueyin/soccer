@@ -9,8 +9,6 @@ from app.models import *
 
 def soccer(request):
     all_result = Soccers.objects.all().order_by("-status")
-    # all_idc = Idc.objects.all()
-    # return render(request, 'soccer.html',{'all_result':all_result})
     return render_to_response("soccer.html", locals())
 
 
