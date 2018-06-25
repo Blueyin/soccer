@@ -18,5 +18,6 @@ def soccer_rank(request):
     return render_to_response("soccer_rank.html", locals())
 
 def soccer_result(request):
+    
     all_result = Soccers_result.objects.all()
     return render_to_response("soccer_result.html", locals())
