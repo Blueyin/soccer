@@ -1,0 +1,2842 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link href="http://51reboot.com/static/images/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dev OPs</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/static/css/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+div.dataTables_length label {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+}
+
+div.dataTables_length select {
+    width: 75px;
+    display: inline-block;
+}
+
+div.dataTables_filter {
+    text-align: right;
+}
+
+div.dataTables_filter label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left;
+}
+
+div.dataTables_filter input {
+    margin-left: 0.5em;
+    display: inline-block;
+}
+
+div.dataTables_info {
+    padding-top: 8px;
+    white-space: nowrap;
+}
+
+div.dataTables_paginate {
+    margin: 0;
+    white-space: nowrap;
+    text-align: right;
+}
+
+div.dataTables_paginate ul.pagination {
+    margin: 2px 0;
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 767px) {
+    div.dataTables_length,
+    div.dataTables_filter,
+    div.dataTables_info,
+    div.dataTables_paginate {
+        text-align: center;
+    }
+}
+
+
+table.dataTable td,
+table.dataTable th {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+
+table.dataTable {
+    clear: both;
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+    max-width: none !important;
+}
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting_asc_disabled,
+table.dataTable thead .sorting_desc_disabled {
+    cursor: pointer;
+}
+
+/*table.dataTable thead .sorting { background: url('../images/sort_both.png') no-repeat center right; }
+table.dataTable thead .sorting_asc { background: url('../images/sort_asc.png') no-repeat center right; }
+table.dataTable thead .sorting_desc { background: url('../images/sort_desc.png') no-repeat center right; }*/
+
+table.dataTable thead .sorting_asc_disabled { background: url('../images/sort_asc_disabled.png') no-repeat center right; }
+table.dataTable thead .sorting_desc_disabled { background: url('../images/sort_desc_disabled.png') no-repeat center right; }
+
+table.dataTable thead > tr > th {
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+table.dataTable th:active {
+    outline: none;
+}
+
+/* Scrolling */
+div.dataTables_scrollHead table {
+    margin-bottom: 0 !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+div.dataTables_scrollHead table thead tr:last-child th:first-child,
+div.dataTables_scrollHead table thead tr:last-child td:first-child {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+div.dataTables_scrollBody table {
+    border-top: none;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+div.dataTables_scrollBody tbody tr:first-child th,
+div.dataTables_scrollBody tbody tr:first-child td {
+    border-top: none;
+}
+
+div.dataTables_scrollFoot table {
+    margin-top: 0 !important;
+    border-top: none;
+}
+
+/* Frustratingly the border-collapse:collapse used by Bootstrap makes the column
+   width calculations when using scrolling impossible to align columns. We have
+   to use separate
+ */
+table.table-bordered.dataTable {
+    border-collapse: separate !important;
+}
+table.table-bordered thead th,
+table.table-bordered thead td {
+    border-left-width: 0;
+    border-top-width: 0;
+}
+table.table-bordered tbody th,
+table.table-bordered tbody td {
+    border-left-width: 0;
+    border-bottom-width: 0;
+}
+table.table-bordered th:last-child,
+table.table-bordered td:last-child {
+    border-right-width: 0;
+}
+div.dataTables_scrollHead table.table-bordered {
+    border-bottom-width: 0;
+}
+
+
+
+
+/*
+ * TableTools styles
+ */
+.table.dataTable tbody tr.active td,
+.table.dataTable tbody tr.active th {
+    background-color: #08C;
+    color: white;
+}
+
+.table.dataTable tbody tr.active:hover td,
+.table.dataTable tbody tr.active:hover th {
+    background-color: #0075b0 !important;
+}
+
+.table.dataTable tbody tr.active th > a,
+.table.dataTable tbody tr.active td > a {
+    color: white;
+}
+
+.table-striped.dataTable tbody tr.active:nth-child(odd) td,
+.table-striped.dataTable tbody tr.active:nth-child(odd) th {
+    background-color: #017ebc;
+}
+
+table.DTTT_selectable tbody tr {
+    cursor: pointer;
+}
+
+div.DTTT .btn:hover {
+    text-decoration: none !important;
+}
+
+ul.DTTT_dropdown.dropdown-menu {
+  z-index: 2003;
+}
+
+ul.DTTT_dropdown.dropdown-menu a {
+    color: #333 !important; /* needed only when demo_page.css is included */
+}
+
+ul.DTTT_dropdown.dropdown-menu li {
+    position: relative;
+}
+
+ul.DTTT_dropdown.dropdown-menu li:hover a {
+    background-color: #0088cc;
+    color: white !important;
+}
+
+div.DTTT_collection_background {
+    z-index: 2002;  
+}
+
+/* TableTools information display */
+div.DTTT_print_info {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 150px;
+    margin-left: -200px;
+    margin-top: -75px;
+    text-align: center;
+    color: #333;
+    padding: 10px 30px;
+    opacity: 0.95;
+
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.5);
+}
+
+div.DTTT_print_info h6 {
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 28px;
+    margin: 1em;
+}
+
+div.DTTT_print_info p {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+div.dataTables_processing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 60px;
+    margin-left: -50%;
+    margin-top: -25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 1.2em;
+    background-color: white;
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255,255,255,0)), color-stop(25%, rgba(255,255,255,0.9)), color-stop(75%, rgba(255,255,255,0.9)), color-stop(100%, rgba(255,255,255,0)));
+    background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 25%, rgba(255,255,255,0.9) 75%, rgba(255,255,255,0) 100%);
+    background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 25%, rgba(255,255,255,0.9) 75%, rgba(255,255,255,0) 100%);
+    background: -ms-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 25%, rgba(255,255,255,0.9) 75%, rgba(255,255,255,0) 100%);
+    background: -o-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 25%, rgba(255,255,255,0.9) 75%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 25%, rgba(255,255,255,0.9) 75%, rgba(255,255,255,0) 100%);
+}
+
+
+
+/*
+ * FixedColumns styles
+ */
+div.DTFC_LeftHeadWrapper table,
+div.DTFC_LeftFootWrapper table,
+div.DTFC_RightHeadWrapper table,
+div.DTFC_RightFootWrapper table,
+table.DTFC_Cloned tr.even {
+    background-color: white;
+    margin-bottom: 0;
+}
+ 
+div.DTFC_RightHeadWrapper table ,
+div.DTFC_LeftHeadWrapper table {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+ 
+div.DTFC_RightHeadWrapper table thead tr:last-child th:first-child,
+div.DTFC_RightHeadWrapper table thead tr:last-child td:first-child,
+div.DTFC_LeftHeadWrapper table thead tr:last-child th:first-child,
+div.DTFC_LeftHeadWrapper table thead tr:last-child td:first-child {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+ 
+div.DTFC_RightBodyWrapper table,
+div.DTFC_LeftBodyWrapper table {
+    border-top: none;
+    margin: 0 !important;
+}
+ 
+div.DTFC_RightBodyWrapper tbody tr:first-child th,
+div.DTFC_RightBodyWrapper tbody tr:first-child td,
+div.DTFC_LeftBodyWrapper tbody tr:first-child th,
+div.DTFC_LeftBodyWrapper tbody tr:first-child td {
+    border-top: none;
+}
+ 
+div.DTFC_RightFootWrapper table,
+div.DTFC_LeftFootWrapper table {
+    border-top: none;
+    margin-top: 0 !important;
+}
+
+
+/*
+ * FixedHeader styles
+ */
+div.FixedHeader_Cloned table {
+    margin: 0 !important
+}
+
+
+.hover{
+    cursor: pointer;
+}
+.progress-reboot{
+    position: absolute;
+    height: 2px;
+    top:0px;
+    background: #337ab7;
+    width: 0%;
+    z-index: 2000;
+}
+#alertText{
+    position: absolute;
+    line-height: 50px;
+    left: 250px;
+    color:green;
+    font-size: 20px;
+}
+    </style>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <div class="progress-reboot" id='progress-reboot'>
+    
+    </div>
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+               <img src="/static/pic/timg.png" height="50px"/>
+            </div>
+            <p id="alertText" class='text-success'> 
+            </p>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-tasks">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>任务1</strong>
+                                        <span class="pull-right text-muted">40%</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>任务 2</strong>
+                                        <span class="pull-right text-muted">20% </span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                            <span class="sr-only">20% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>查看全部</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-tasks -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> 消息1
+                                    <span class="pull-right text-muted small">4分钟前</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-tasks fa-fw"></i> 分配任务
+                                    <span class="pull-right text-muted small">5分钟前</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>查看全部提醒</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+
+<!--                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> 设置</a>
+                        </li>
+                        <li class="divider"></li>
+ -->                        <li><a href="/login"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="/soccer"><i class="fa fa-bar-chart"></i>足球预测</a>
+                        </li>
+                        <li>
+                            <a href="/soccer/all/rank"><i class="fa fa-tasks fa-fw"></i>球队排行</a>
+                        </li>
+                        <li>
+                            <a href="/soccer/all/result"><i class="fa fa-tasks fa-fw"></i>球队赛果</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+        <div class="row" style='margin-top:20px'>
+		<!--form class="form-horizontal"  method="post" action="/job/update_job/"-->
+		<a href="#" style='margin-left:5px'></a>
+
+		<br>
+		<!--/form-->
+                <div class="col-lg-12">
+
+                    <div class="groupMUCont">
+                        <!--小组赛-->
+                        <div id="div_group" style="display: block;">
+                            <ul class="groupMUHead margin-top20">
+                                <li class="li01 line">小组</li>
+                                <li class="li02 line">时间</li>
+                                <li class="li03">球队</li>
+                                <li class="li04">比分</li>
+                                <li class="li05 line">球队</li>
+                                <li class="li06 line">统计</li>
+                                <li class="li07 line">场地</li>
+                                <li class="li08">指数</li>
+                            </ul>
+
+
+
+
+                            <div id="day_01" name="day_01" style="
+
+                    display:block;">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周四 06月14日</em><br>1场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356243)">
+                                    <li class="li01 font20 line">A</li>
+                                    <li class="li02 line">06/14<br>23:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234175.png" alt=""></span>俄罗斯
+
+                                        <span class="newNumY">1</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 5-0</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">1</span>
+
+
+                                        沙特阿拉伯<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234191.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 13-6 <br>&nbsp;犯规 22-10<br>&nbsp;控球 40-60
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">卢日尼基体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.32</span> <span class="span02">4.1</span> <span class="span02">7.8</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">2.22</span> <span class="span02">3.06</span> <span class="span02">2.84</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">沙特阿拉伯先开球  |  第一个角球(俄罗斯)  第一张黄牌(俄罗斯) | 角球数(6-2) | 黄牌数(1-1)</div>
+
+                            </div>
+
+
+
+                            <div id="day_02" name="day_02" style="
+
+                    display:block;">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周五 06月15日</em><br>3场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356244)">
+                                    <li class="li01 font20 line">A</li>
+                                    <li class="li02 line">06/15<br>20:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234165.png" alt=""></span>埃及
+
+                                        <span class="newNumY">2</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 0-1</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY"></span>
+
+
+                                        乌拉圭<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234193.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 8-14 <br>&nbsp;犯规 12-6<br>&nbsp;控球 43-57
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">叶卡捷琳堡中央体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">9.3</span> <span class="span02">4.26</span> <span class="span02">1.27</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">2.93</span> <span class="span02">3.1</span> <span class="span02">2.15</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">乌拉圭先开球  |  第一个角球(乌拉圭)  第一张黄牌(埃及) | 角球数(0-5) | 黄牌数(2-0)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356249)">
+                                    <li class="li01 font20 line">B</li>
+                                    <li class="li02 line">06/15<br>23:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234182.png" alt=""></span>摩洛哥
+
+                                        <span class="newNumY">1</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 0-1</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">3</span>
+
+
+                                        伊朗<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234195.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 13-8 <br>&nbsp;犯规 22-14<br>&nbsp;控球 64-36
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">圣彼得堡体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.94</span> <span class="span02">2.87</span> <span class="span02">3.76</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">4.22</span> <span class="span02">3.45</span> <span class="span02">1.66</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">摩洛哥先开球 | 第一个角球(摩洛哥) 第一张黄牌(伊朗) | 角球数(5-2) | 黄牌数(1-3)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356250)">
+                                    <li class="li01 font20 line">B</li>
+                                    <li class="li02 line">06/16<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234185.png" alt=""></span>葡萄牙
+
+                                        <span class="newNumY">1</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 3-3</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">1</span>
+
+
+                                        西班牙<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234194.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 8-12 <br>&nbsp;犯规 12-10<br>&nbsp;控球 39-61
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">菲什特奥林匹克体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">3.44</span> <span class="span02">3.26</span> <span class="span02">1.88</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">1.68</span> <span class="span02">3.52</span> <span class="span02">4</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">西班牙先开球 | 第一个角球(西班牙) 第一张黄牌(西班牙) | 角球数(4-5) | 黄牌数(1-1)</div>
+
+                            </div>
+
+
+
+                            <div id="day_03" name="day_03" style="
+
+                    display:block;">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周六 06月16日</em><br>4场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356255)">
+                                    <li class="li01 font20 line">C</li>
+                                    <li class="li02 line">06/16<br>18:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234176.png" alt=""></span>法国
+
+                                        <span class="newNumY">1</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 2-1</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">3</span>
+
+
+                                        澳大利亚<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234166.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 13-6 <br>&nbsp;犯规 16-19<br>&nbsp;控球 51-49
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">喀山竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.13</span> <span class="span02">6.9</span> <span class="span02">10</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-2)</span> <span class="span02">2.43</span> <span class="span02">3.95</span> <span class="span02">2.15</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">澳大利亚先开球  |  第一个角球(法国)  第一张黄牌(澳大利亚) |  角球数(5-1) | 黄牌数(1-3)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356261)">
+                                    <li class="li01 font20 line">D</li>
+                                    <li class="li02 line">06/16<br>21:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234164.png" alt=""></span>阿根廷
+
+                                        <span class="newNumY"></span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 1-1</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY"></span>
+
+
+                                        冰岛<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234170.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 26-9 <br>&nbsp;犯规 10-15<br>&nbsp;控球 73-27
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">斯巴达体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.18</span> <span class="span02">5.5</span> <span class="span02">10</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">1.68</span> <span class="span02">3.62</span> <span class="span02">3.88</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">冰岛先开球 | 第一个角球(阿根廷) | 角球数(10-2) | 黄牌数(0-0)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356256)">
+                                    <li class="li01 font20 line">C</li>
+                                    <li class="li02 line">06/17<br>00:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234181.png" alt=""></span>秘鲁
+
+                                        <span class="newNumY">1</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 0-1</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">2</span>
+
+
+                                        丹麦<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234172.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 18-10 <br>&nbsp;犯规 10-18<br>&nbsp;控球 52-48
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">莫尔多瓦竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">3.07</span> <span class="span02">3.05</span> <span class="span02">2.1</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">1.55</span> <span class="span02">3.65</span> <span class="span02">4.75</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">丹麦先开球 | 第一个角球(秘鲁) 第一张黄牌(秘鲁) | 角球数(3-7) | 黄牌数(1-2)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356262)">
+                                    <li class="li01 font20 line">D</li>
+                                    <li class="li02 line">06/17<br>03:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234180.png" alt=""></span>克罗地亚
+
+                                        <span class="newNumY">2</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 2-0</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">1</span>
+
+
+                                        尼日利亚<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234184.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 11-14 <br>&nbsp;犯规 20-16<br>&nbsp;控球 54-46
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">加里宁格勒体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.46</span> <span class="span02">3.7</span> <span class="span02">5.75</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">2.65</span> <span class="span02">3.2</span> <span class="span02">2.28</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">尼日利亚先开球 | 第一个角球(克罗地亚) 第一张黄牌(克罗地亚) | 角球数(6-5) | 黄牌数(2-1)</div>
+
+                            </div>
+
+
+
+                            <div id="day_04" name="day_04" style="
+
+                    display:block;">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周日 06月17日</em><br>3场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356267)">
+                                    <li class="li01 font20 line">E</li>
+                                    <li class="li02 line">06/17<br>20:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234178.png" alt=""></span>哥斯达黎加
+
+                                        <span class="newNumY">2</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 0-1</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">2</span>
+
+
+                                        塞尔维亚<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234189.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 10-10 <br>&nbsp;犯规 18-15<br>&nbsp;控球 50-50
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">宇宙竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">4.43</span> <span class="span02">3.2</span> <span class="span02">1.69</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">1.93</span> <span class="span02">3.15</span> <span class="span02">3.4</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">塞尔维亚先开球 | 第一个角球(塞尔维亚) 第一张黄牌(哥斯达黎加) | 角球数(5-4) | 黄牌数(2-2)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356273)">
+                                    <li class="li01 font20 line">F</li>
+                                    <li class="li02 line">06/17<br>23:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234174.png" alt=""></span>德国
+
+                                        <span class="newNumY">2</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 0-1</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">2</span>
+
+
+                                        墨西哥<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234183.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 25-12 <br>&nbsp;犯规 10-15<br>&nbsp;控球 61-39
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">卢日尼基体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.24</span> <span class="span02">4.8</span> <span class="span02">8.7</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">1.84</span> <span class="span02">3.6</span> <span class="span02">3.24</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">墨西哥先开球  |  第一个角球(墨西哥)  第一张黄牌(墨西哥) | 角球数(8-1) | 黄牌数(2-2)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356268)">
+                                    <li class="li01 font20 line">E</li>
+                                    <li class="li02 line">06/18<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234168.png" alt=""></span>巴西
+
+                                        <span class="newNumY">1</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 1-1</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">3</span>
+
+
+                                        瑞士<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234188.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 20-6 <br>&nbsp;犯规 12-19<br>&nbsp;控球 52-48
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">罗斯托夫竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.32</span> <span class="span02">4.1</span> <span class="span02">7.8</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">2.05</span> <span class="span02">3.45</span> <span class="span02">2.85</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">巴西先开球  |  第一个角球(瑞士)  第一张黄牌(瑞士) | 角球数(7-2) | 黄牌数(1-3)</div>
+
+                            </div>
+
+
+
+                            <div id="day_05" name="day_05" style="
+
+                    display:block;">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周一 06月18日</em><br>3场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356274)">
+                                    <li class="li01 font20 line">F</li>
+                                    <li class="li02 line">06/18<br>20:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234187.png" alt=""></span>瑞典
+
+                                        <span class="newNumY">1</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 1-0</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">2</span>
+
+
+                                        韩国<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234179.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 15-5 <br>&nbsp;犯规 20-23<br>&nbsp;控球 52-48
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">下诺夫哥罗德体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.88</span> <span class="span02">3</span> <span class="span02">3.8</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">4.05</span> <span class="span02">3.45</span> <span class="span02">1.69</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">韩国先开球 | 第一个角球(韩国) 第一张黄牌(韩国) | 角球数(6-5) | 黄牌数(1-2)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356279)">
+                                    <li class="li01 font20 line">G</li>
+                                    <li class="li02 line">06/18<br>23:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234169.png" alt=""></span>比利时
+
+                                        <span class="newNumY">3</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 3-0</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">5</span>
+
+
+                                        巴拿马<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234167.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 15-6 <br>&nbsp;犯规 17-18<br>&nbsp;控球 61-39
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">菲什特奥林匹克体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.13</span> <span class="span02">6.6</span> <span class="span02">10.7</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-2)</span> <span class="span02">2.28</span> <span class="span02">4.16</span> <span class="span02">2.22</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">巴拿马先开球 | 第一个角球(比利时) 第一张黄牌(比利时) | 角球数(9-3) | 黄牌数(3-5)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356280)">
+                                    <li class="li01 font20 line">G</li>
+                                    <li class="li02 line">06/19<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234192.png" alt=""></span>突尼斯
+
+                                        <span class="newNumY"></span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 1-2</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">1</span>
+
+
+                                        英格兰<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234196.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 6-17 <br>&nbsp;犯规 14-8<br>&nbsp;控球 40-60
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">伏尔加格勒竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">6.3</span> <span class="span02">4.15</span> <span class="span02">1.37</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">2.66</span> <span class="span02">3.1</span> <span class="span02">2.32</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">英格兰先开球 | 第一个角球(英格兰) 第一张黄牌(英格兰) | 角球数(2-7) | 黄牌数(0-1)</div>
+
+                            </div>
+
+
+
+                            <div id="day_06" name="day_06" style="
+
+                    display:block;">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周二 06月19日</em><br>3场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356286)">
+                                    <li class="li01 font20 line">H</li>
+                                    <li class="li02 line">06/19<br>20:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234177.png" alt=""></span>哥伦比亚
+
+                                        <span class="newNumY">2</span>
+                                        <span class="newNumR">1</span>
+                                    </li>
+                                    <li class="li04 "> 1-2</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">1</span>
+
+
+                                        日本<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234186.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 8-14 <br>&nbsp;犯规 15-9<br>&nbsp;控球 42-58
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">莫尔多瓦竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.59</span> <span class="span02">3.3</span> <span class="span02">5.06</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">3.12</span> <span class="span02">3.2</span> <span class="span02">2.02</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">日本先开球 | 第一个角球(日本) 第一张黄牌(哥伦比亚) | 角球数(3-6) | 黄牌数(2-1)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356285)">
+                                    <li class="li01 font20 line">H</li>
+                                    <li class="li02 line">06/19<br>23:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234171.png" alt=""></span>波兰
+
+                                        <span class="newNumY">1</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 1-2</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">2</span>
+
+
+                                        塞内加尔<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234190.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 10-8 <br>&nbsp;犯规 8-15<br>&nbsp;控球 59-41
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">斯巴达体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">2.16</span> <span class="span02">2.95</span> <span class="span02">3.05</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">4.86</span> <span class="span02">3.7</span> <span class="span02">1.53</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">塞内加尔先开球 | 第一个角球(塞内加尔) 第一张黄牌(波兰) | 角球数(3-3) | 黄牌数(1-2)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356245)">
+                                    <li class="li01 font20 line">A</li>
+                                    <li class="li02 line">06/20<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234175.png" alt=""></span>俄罗斯
+
+                                        <span class="newNumY">1</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 3-1</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">1</span>
+
+
+                                        埃及<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234165.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 11-13 <br>&nbsp;犯规 11-10<br>&nbsp;控球 49-51
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">圣彼得堡体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.77</span> <span class="span02">3.1</span> <span class="span02">3.68</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">3.58</span> <span class="span02">3.35</span> <span class="span02">1.72</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">埃及先开球 |  第一个角球(俄罗斯)  第一张黄牌(埃及) | 角球数(7-4) | 黄牌数(1-1)</div>
+
+                            </div>
+
+
+
+                            <div id="day_07" name="day_07" style="
+
+                    display:block;">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周三 06月20日</em><br>3场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356251)">
+                                    <li class="li01 font20 line">B</li>
+                                    <li class="li02 line">06/20<br>20:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234185.png" alt=""></span>葡萄牙
+
+                                        <span class="newNumY">1</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 1-0</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">1</span>
+
+
+                                        摩洛哥<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234182.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 10-16 <br>&nbsp;犯规 19-23<br>&nbsp;控球 46-54
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">卢日尼基体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.42</span> <span class="span02">3.55</span> <span class="span02">5.75</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">2.54</span> <span class="span02">3.1</span> <span class="span02">2.26</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">摩洛哥先开球  |  第一个角球(葡萄牙)  第一张黄牌(摩洛哥) | 角球数(5-7) | 黄牌数(1-1)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356246)">
+                                    <li class="li01 font20 line">A</li>
+                                    <li class="li02 line">06/20<br>23:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234193.png" alt=""></span>乌拉圭
+
+                                        <span class="newNumY"></span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 1-0</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY"></span>
+
+
+                                        沙特阿拉伯<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234191.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 13-8 <br>&nbsp;犯规 10-13<br>&nbsp;控球 47-53
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">罗斯托夫竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.09</span> <span class="span02">6.15</span> <span class="span02">12.6</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-2)</span> <span class="span02">2.47</span> <span class="span02">3.75</span> <span class="span02">2.05</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">沙特阿拉伯先开球 | 第一个角球(沙特阿拉伯) | 角球数(3-4) | 黄牌数(0-0)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356252)">
+                                    <li class="li01 font20 line">B</li>
+                                    <li class="li02 line">06/21<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234195.png" alt=""></span>伊朗
+
+                                        <span class="newNumY">2</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 0-1</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY"></span>
+
+
+                                        西班牙<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234194.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 5-17 <br>&nbsp;犯规 14-14<br>&nbsp;控球 32-68
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">喀山竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">13.5</span> <span class="span02">5.95</span> <span class="span02">1.09</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+2)</span> <span class="span02">2.08</span> <span class="span02">3.6</span> <span class="span02">2.5</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">西班牙先开球  |  第一个角球(西班牙)  第一张黄牌(伊朗) | 角球数(2-6) | 黄牌数(2-0)</div>
+
+                            </div>
+
+
+
+                            <div id="day_08" name="day_08" style="
+
+                    display:block;">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周四 06月21日</em><br>3场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356258)">
+                                    <li class="li01 font20 line">C</li>
+                                    <li class="li02 line">06/21<br>20:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234172.png" alt=""></span>丹麦
+
+                                        <span class="newNumY">2</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 1-1</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY"></span>
+
+
+                                        澳大利亚<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234166.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 10-14 <br>&nbsp;犯规 7-5<br>&nbsp;控球 48-52
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">宇宙竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.68</span> <span class="span02">3.2</span> <span class="span02">3.98</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">3.4</span> <span class="span02">3.12</span> <span class="span02">1.84</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">丹麦先开球 | 第一个角球(丹麦) 第一张黄牌(丹麦) | 角球数(3-5) | 黄牌数(2-0)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356257)">
+                                    <li class="li01 font20 line">C</li>
+                                    <li class="li02 line">06/21<br>23:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234176.png" alt=""></span>法国
+
+                                        <span class="newNumY">2</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 1-0</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">2</span>
+
+
+                                        秘鲁<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234181.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 12-10 <br>&nbsp;犯规 12-14<br>&nbsp;控球 44-56
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">叶卡捷琳堡中央体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.38</span> <span class="span02">3.73</span> <span class="span02">6</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">2.35</span> <span class="span02">3.2</span> <span class="span02">2.38</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">法国先开球  |  第一个角球(法国)  第一张黄牌(法国) | 角球数(5-3) | 黄牌数(2-2)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356263)">
+                                    <li class="li01 font20 line">D</li>
+                                    <li class="li02 line">06/22<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234164.png" alt=""></span>阿根廷
+
+                                        <span class="newNumY">3</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 0-3</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">4</span>
+
+
+                                        克罗地亚<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234180.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 10-15 <br>&nbsp;犯规 15-23<br>&nbsp;控球 58-42
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">下诺夫哥罗德体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.71</span> <span class="span02">3.11</span> <span class="span02">3.95</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">3.5</span> <span class="span02">3.25</span> <span class="span02">1.77</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">克罗地亚先开球  |  第一个角球(克罗地亚)  第一张黄牌(克罗地亚) | 角球数(5-2) | 黄牌数(3-4)</div>
+
+                            </div>
+
+
+
+                            <div id="day_09" name="day_09" style="
+
+                    display:block;">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周五 06月22日</em><br>3场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356269)">
+                                    <li class="li01 font20 line">E</li>
+                                    <li class="li02 line">06/22<br>20:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234168.png" alt=""></span>巴西
+
+                                        <span class="newNumY">2</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 2-0</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">1</span>
+
+
+                                        哥斯达黎加<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234178.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 23-4 <br>&nbsp;犯规 11-11<br>&nbsp;控球 69-31
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">圣彼得堡体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.07</span> <span class="span02">6.25</span> <span class="span02">15.5</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-2)</span> <span class="span02">2.67</span> <span class="span02">3.65</span> <span class="span02">1.96</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">哥斯达黎加先开球 | 第一个角球(巴西) 第一张黄牌(巴西) | 角球数(10-1) | 黄牌数(2-1)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356264)">
+                                    <li class="li01 font20 line">D</li>
+                                    <li class="li02 line">06/22<br>23:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234184.png" alt=""></span>尼日利亚
+
+                                        <span class="newNumY">1</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 2-0</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY"></span>
+
+
+                                        冰岛<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234170.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 16-10 <br>&nbsp;犯规 9-10<br>&nbsp;控球 56-44
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">伏尔加格勒竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">2.65</span> <span class="span02">2.91</span> <span class="span02">2.28</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">6.45</span> <span class="span02">4.15</span> <span class="span02">1.31</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">尼日利亚先开球 | 第一个角球(冰岛) 第一张黄牌(尼日利亚) | 角球数(6-5) | 黄牌数(1-0)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356270)">
+                                    <li class="li01 font20 line">E</li>
+                                    <li class="li02 line">06/23<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234189.png" alt=""></span>塞尔维亚
+
+                                        <span class="newNumY">4</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 1-2</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">1</span>
+
+
+                                        瑞士<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234188.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 12-20 <br>&nbsp;犯规 17-12<br>&nbsp;控球 42-58
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">加里宁格勒体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">2.6</span> <span class="span02">2.88</span> <span class="span02">2.34</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">1.4</span> <span class="span02">3.7</span> <span class="span02">5.72</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">瑞士先开球 | 第一个角球(瑞士) 第一张黄牌(塞尔维亚) | 角球数(3-7) | 黄牌数(4-1) </div>
+
+                            </div>
+
+
+
+                            <div id="day_10" name="day_10" style="
+
+                    display:block;">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周六 06月23日</em><br>3场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356281)">
+                                    <li class="li01 font20 line">G</li>
+                                    <li class="li02 line">06/23<br>20:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234169.png" alt=""></span>比利时
+
+                                        <span class="newNumY"></span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 5-2</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">1</span>
+
+
+                                        突尼斯<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234192.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 23-15 <br>&nbsp;犯规 12-13<br>&nbsp;控球 52-48
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">斯巴达体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.23</span> <span class="span02">4.65</span> <span class="span02">7.6</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">1.89</span> <span class="span02">3.25</span> <span class="span02">3.1</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">比利时先开球 | 第一个角球(比利时) 第一张黄牌(突尼斯) | 角球数(5-2) | 黄牌数(0-1)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356276)">
+                                    <li class="li01 font20 line">F</li>
+                                    <li class="li02 line">06/23<br>23:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234179.png" alt=""></span>韩国
+
+                                        <span class="newNumY">4</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 1-2</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY"></span>
+
+
+                                        墨西哥<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234183.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 17-13 <br>&nbsp;犯规 24-7<br>&nbsp;控球 42-58
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">罗斯托夫竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">5.75</span> <span class="span02">3.55</span> <span class="span02">1.42</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">2.25</span> <span class="span02">3.1</span> <span class="span02">2.55</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">韩国先开球 | 第一个角球(墨西哥) 第一张黄牌(韩国) | 角球数(7-5) | 黄牌数(4-0)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356275)">
+                                    <li class="li01 font20 line">F</li>
+                                    <li class="li02 line">06/24<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234174.png" alt=""></span>德国
+
+                                        <span class="newNumY">2</span>
+                                        <span class="newNumR">1</span>
+                                    </li>
+                                    <li class="li04 "> 2-1</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">2</span>
+
+
+                                        瑞典<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234187.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 16-8 <br>&nbsp;犯规 12-13<br>&nbsp;控球 71-29
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">菲什特奥林匹克体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.29</span> <span class="span02">4.45</span> <span class="span02">6.3</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">2.06</span> <span class="span02">3.25</span> <span class="span02">2.73</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">德国先开球 | 第一个角球(德国) 第一张黄牌(瑞典) | 角球数(8-3) | 黄牌数(2-2)</div>
+
+                            </div>
+
+
+
+                            <div id="day_11" name="day_11" style="
+
+                    display:block;">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周日 06月24日</em><br>3场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356282)">
+                                    <li class="li01 font20 line">G</li>
+                                    <li class="li02 line">06/24<br>20:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234196.png" alt=""></span>英格兰
+
+                                        <span class="newNumY">1</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 6-1</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">3</span>
+
+
+                                        巴拿马<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234167.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 12-8 <br>&nbsp;犯规 14-13<br>&nbsp;控球 57-43
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">下诺夫哥罗德体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.08</span> <span class="span02">6.3</span> <span class="span02">13.5</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-2)</span> <span class="span02">2.54</span> <span class="span02">3.55</span> <span class="span02">2.07</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">英格兰先开球 | 第一个角球(英格兰) 第一张黄牌(巴拿马) | 角球数(3-2) | 黄牌数(1-3)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356287)">
+                                    <li class="li01 font20 line">H</li>
+                                    <li class="li02 line">06/24<br>23:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234186.png" alt=""></span>日本
+
+                                        <span class="newNumY">2</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 2-2</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY">3</span>
+
+
+                                        塞内加尔<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234190.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 7-13 <br>&nbsp;犯规 8-14<br>&nbsp;控球 53-47
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">叶卡捷琳堡中央体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">3.08</span> <span class="span02">2.88</span> <span class="span02">2.05</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">1.5</span> <span class="span02">3.55</span> <span class="span02">4.73</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">日本先开球 | 第一个角球(塞内加尔) 第一张黄牌(塞内加尔) | 角球数(2-5) | 黄牌数(2-3)</div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356288)">
+                                    <li class="li01 font20 line">H</li>
+                                    <li class="li02 line">06/25<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234171.png" alt=""></span>波兰
+
+                                        <span class="newNumY">2</span>
+                                        <span class="newNumR"></span>
+                                    </li>
+                                    <li class="li04 "> 0-3</li>
+                                    <li class="li05 line ">
+
+                                        <span class="newNumR"></span>
+                                        <span class="newNumY"></span>
+
+
+                                        哥伦比亚<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234177.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line"> &nbsp;射门 9-13 <br>&nbsp;犯规 15-10<br>&nbsp;控球 45-55
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">喀山竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">3.1</span> <span class="span02">3.45</span> <span class="span02">1.83</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">1.69</span> <span class="span02">3.4</span> <span class="span02">3.65</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip">波兰先开球  |  第一个角球(波兰)  第一张黄牌(波兰) | 角球数(7-5) | 黄牌数(2-0)</div>
+
+                            </div>
+
+
+
+                            <div id="day_12" name="day_12" style="
+                    display:block;
+                    ">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周一 06月25日</em><br>4场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356247)">
+                                    <li class="li01 font20 line">A</li>
+                                    <li class="li02 line">06/25<br>22:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234175.png" alt=""></span>俄罗斯
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        乌拉圭<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234193.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">宇宙竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">2.43</span> <span class="span02">2.95</span> <span class="span02">2.45</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">1.36</span> <span class="span02">3.95</span> <span class="span02">5.85</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip"><a href="http://app.gooooal.com/cup1.do?lid=108&amp;sid=2018&amp;pid=18&amp;lang=cn&amp;l=4" target="_blank"><font color="blue">世界杯小组赛</font></a> | <a href="http://app.gooooal.com/sports/wc/index.do" target="_blank"><font color="red"><b>雪缘园世界杯专题</b></font></a></div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356248)">
+                                    <li class="li01 font20 line">A</li>
+                                    <li class="li02 line">06/25<br>22:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234191.png" alt=""></span>沙特阿拉伯
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        埃及<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234165.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">伏尔加格勒竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">4.15</span> <span class="span02">3.45</span> <span class="span02">1.59</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">1.92</span> <span class="span02">3.5</span> <span class="span02">2.83</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip"><a href="http://www.gooooal.com/football/" target="_blank"><font color="red"><b>雪缘园新版足球APP 看球分析好帮手</b></font></a></div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356253)">
+                                    <li class="li01 font20 line">B</li>
+                                    <li class="li02 line">06/26<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234195.png" alt=""></span>伊朗
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        葡萄牙<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234185.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">莫尔多瓦竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">5.95</span> <span class="span02">3.42</span> <span class="span02">1.43</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">2.23</span> <span class="span02">3.15</span> <span class="span02">2.54</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip"><a href="http://app.gooooal.com/PersonTransfer.do?lid=4&amp;sid=2018&amp;seasonType=1&amp;lang=cn" target="_blank"><font color="red"><b>2018年英超夏季转会专题</b></font></a></div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356254)">
+                                    <li class="li01 font20 line">B</li>
+                                    <li class="li02 line">06/26<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234194.png" alt=""></span>西班牙
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        摩洛哥<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234182.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">加里宁格勒体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.18</span> <span class="span02">4.85</span> <span class="span02">9.5</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-2)</span> <span class="span02">3.35</span> <span class="span02">4.05</span> <span class="span02">1.63</span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+
+
+                            <div id="day_13" name="day_13" style="
+
+                    display:block;">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周二 06月26日</em><br>4场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356259)">
+                                    <li class="li01 font20 line">C</li>
+                                    <li class="li02 line">06/26<br>22:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234172.png" alt=""></span>丹麦
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        法国<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234176.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">卢日尼基体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">4.4</span> <span class="span02">2.3</span> <span class="span02">2.02</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">1.54</span> <span class="span02">3.4</span> <span class="span02">4.7</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <div class="tdBotomtip"><a href="http://app.gooooal.com/cup1.do?lid=108&amp;sid=2018&amp;pid=18&amp;lang=cn&amp;l=4" target="_blank"><font color="blue">世界杯小组赛</font></a></div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356260)">
+                                    <li class="li01 font20 line">C</li>
+                                    <li class="li02 line">06/26<br>22:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234166.png" alt=""></span>澳大利亚
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        秘鲁<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234181.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">菲什特奥林匹克体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">2.58</span> <span class="span02">3.15</span> <span class="span02">2.2</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">1.46</span> <span class="span02">3.8</span> <span class="span02">4.8</span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356265)">
+                                    <li class="li01 font20 line">D</li>
+                                    <li class="li02 line">06/27<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234184.png" alt=""></span>尼日利亚
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        阿根廷<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234164.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">圣彼得堡体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">5.65</span> <span class="span02">4.05</span> <span class="span02">1.36</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">2.42</span> <span class="span02">3.3</span> <span class="span02">2.26</span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356266)">
+                                    <li class="li01 font20 line">D</li>
+                                    <li class="li02 line">06/27<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234170.png" alt=""></span>冰岛
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        克罗地亚<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234180.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">罗斯托夫竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">3</span> <span class="span02">3.1</span> <span class="span02">1.99</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">1.56</span> <span class="span02">3.55</span> <span class="span02">4.25</span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+
+
+                            <div id="day_14" name="day_14" style="
+
+                    display:block;">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周三 06月27日</em><br>4场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356277)">
+                                    <li class="li01 font20 line">F</li>
+                                    <li class="li02 line">06/27<br>22:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234179.png" alt=""></span>韩国
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        德国<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234174.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">喀山竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">11</span> <span class="span02">5.95</span> <span class="span02">1.11</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+2)</span> <span class="span02">2.01</span> <span class="span02">3.95</span> <span class="span02">2.45</span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356278)">
+                                    <li class="li01 font20 line">F</li>
+                                    <li class="li02 line">06/27<br>22:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234183.png" alt=""></span>墨西哥
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        瑞典<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234187.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">叶卡捷琳堡中央体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">2.14</span> <span class="span02">3</span> <span class="span02">2.8</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">4.7</span> <span class="span02">3.7</span> <span class="span02">1.48</span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356271)">
+                                    <li class="li01 font20 line">E</li>
+                                    <li class="li02 line">06/28<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234189.png" alt=""></span>塞尔维亚
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        巴西<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234168.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">斯巴达体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">6</span> <span class="span02">3.8</span> <span class="span02">1.37</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(+1)</span> <span class="span02">2.45</span> <span class="span02">3.25</span> <span class="span02">2.26</span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356272)">
+                                    <li class="li01 font20 line">E</li>
+                                    <li class="li02 line">06/28<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234188.png" alt=""></span>瑞士
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        哥斯达黎加<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234178.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">下诺夫哥罗德体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 ">1.66</span> <span class="span02">2.9</span> <span class="span02">4.75</span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(-1)</span> <span class="span02">3.3</span> <span class="span02">3.15</span> <span class="span02">1.86</span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+
+
+                            <div id="day_15" name="day_15" style="
+
+                    display:block;">
+                                <div class="grouptabTit">
+                                    <span class="spanBox"><em class="font16">周四 06月28日</em><br>4场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356289)">
+                                    <li class="li01 font20 line">H</li>
+                                    <li class="li02 line">06/28<br>22:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234186.png" alt=""></span>日本
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        波兰<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234171.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">伏尔加格勒竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 "></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356290)">
+                                    <li class="li01 font20 line">H</li>
+                                    <li class="li02 line">06/28<br>22:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234190.png" alt=""></span>塞内加尔
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        哥伦比亚<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234177.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">宇宙竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 "></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356283)">
+                                    <li class="li01 font20 line">G</li>
+                                    <li class="li02 line">06/29<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234196.png" alt=""></span>英格兰
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        比利时<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234169.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">加里宁格勒体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 "></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356284)">
+                                    <li class="li01 font20 line">G</li>
+                                    <li class="li02 line">06/29<br>02:00</li>
+                                    <li class="li03 "><span class="logoPic fl margin-left5"><img src="./世界杯赛程赛果_files/101234167.png" alt=""></span>巴拿马
+                                    </li>
+                                    <li class="li04 ">VS </li>
+                                    <li class="li05 line ">
+                                        突尼斯<span class="logoPic fr margin-right5"><img src="./世界杯赛程赛果_files/101234192.png" alt=""></span>
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">莫尔多瓦竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02 "></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+
+                        <!--16强-->
+                        <div style="display: none;">
+                            <div class="groupMQiang margin-top10" id="div_six" style="display: none;"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div id="day_16" style="">
+                                <div class="grouptabTit margin-top56">
+                                    <span class="spanBox"><em class="font16">周六 06月30日</em><br>2场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356404)">
+                                    <li class="li01 font14 line" style="font-size:14px;">十六强</li>
+                                    <li class="li02 line">06/30<br>22:00</li>
+                                    <li class="li03 ">
+                                        C组第一名
+                                    </li>
+                                    <li class="li04">VS </li>
+                                    <li class="li05 line ">
+                                        D组第二名
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">喀山竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356406)">
+                                    <li class="li01 font14 line" style="font-size:14px;">十六强</li>
+                                    <li class="li02 line">07/01<br>02:00</li>
+                                    <li class="li03 ">
+                                        A组第一名
+                                    </li>
+                                    <li class="li04">VS </li>
+                                    <li class="li05 line ">
+                                        B组第二名
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">菲什特奥林匹克体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+
+
+                            <div id="day_17" style="">
+                                <div class="grouptabTit margin-top56">
+                                    <span class="spanBox"><em class="font16">周日 07月01日</em><br>2场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356408)">
+                                    <li class="li01 font14 line" style="font-size:14px;">十六强</li>
+                                    <li class="li02 line">07/01<br>22:00</li>
+                                    <li class="li03 ">
+                                        B组第一名
+                                    </li>
+                                    <li class="li04">VS </li>
+                                    <li class="li05 line ">
+                                        A组第二名
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">卢日尼基体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356410)">
+                                    <li class="li01 font14 line" style="font-size:14px;">十六强</li>
+                                    <li class="li02 line">07/02<br>02:00</li>
+                                    <li class="li03 ">
+                                        D组第一名
+                                    </li>
+                                    <li class="li04">VS </li>
+                                    <li class="li05 line ">
+                                        C组第二名
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">下诺夫哥罗德体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+
+
+                            <div id="day_18" style="">
+                                <div class="grouptabTit margin-top56">
+                                    <span class="spanBox"><em class="font16">周一 07月02日</em><br>2场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356412)">
+                                    <li class="li01 font14 line" style="font-size:14px;">十六强</li>
+                                    <li class="li02 line">07/02<br>22:00</li>
+                                    <li class="li03 ">
+                                        E组第一名
+                                    </li>
+                                    <li class="li04">VS </li>
+                                    <li class="li05 line ">
+                                        F组第二名
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">宇宙竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356414)">
+                                    <li class="li01 font14 line" style="font-size:14px;">十六强</li>
+                                    <li class="li02 line">07/03<br>02:00</li>
+                                    <li class="li03 ">
+                                        G组第一名
+                                    </li>
+                                    <li class="li04">VS </li>
+                                    <li class="li05 line ">
+                                        H组第二名
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">罗斯托夫竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+
+
+                            <div id="day_19" style="">
+                                <div class="grouptabTit margin-top56">
+                                    <span class="spanBox"><em class="font16">周二 07月03日</em><br>2场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356416)">
+                                    <li class="li01 font14 line" style="font-size:14px;">十六强</li>
+                                    <li class="li02 line">07/03<br>22:00</li>
+                                    <li class="li03 ">
+                                        F组第一名
+                                    </li>
+                                    <li class="li04">VS </li>
+                                    <li class="li05 line ">
+                                        E组第二名
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">圣彼得堡体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356418)">
+                                    <li class="li01 font14 line" style="font-size:14px;">十六强</li>
+                                    <li class="li02 line">07/04<br>02:00</li>
+                                    <li class="li03 ">
+                                        H组第一名
+                                    </li>
+                                    <li class="li04">VS </li>
+                                    <li class="li05 line ">
+                                        G组第二名
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">斯巴达体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+
+                        <!--8强-->
+                        <div style="display: none;">
+                            <div class="groupMQiang margin-top10" id="div_enity" style="display: none;"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div id="day_20" style="">
+                                <div class="grouptabTit margin-top56">
+                                    <span class="spanBox"><em class="font16">周五 07月06日</em><br>2场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356420)">
+                                    <li class="li01 font14 line" style="font-size:14px;">八强</li>
+                                    <li class="li02 line">07/06<br>22:00</li>
+                                    <li class="li03 ">
+                                        十六强1胜方
+                                    </li>
+                                    <li class="li04">VS </li>
+                                    <li class="li05 line ">
+                                        十六强2胜方
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">下诺夫哥罗德体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356422)">
+                                    <li class="li01 font14 line" style="font-size:14px;">八强</li>
+                                    <li class="li02 line">07/07<br>02:00</li>
+                                    <li class="li03 ">
+                                        十六强5胜方
+                                    </li>
+                                    <li class="li04">VS </li>
+                                    <li class="li05 line ">
+                                        十六强6胜方
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">喀山竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+
+
+                            <div id="day_21" style="">
+                                <div class="grouptabTit margin-top56">
+                                    <span class="spanBox"><em class="font16">周六 07月07日</em><br>2场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356424)">
+                                    <li class="li01 font14 line" style="font-size:14px;">八强</li>
+                                    <li class="li02 line">07/07<br>22:00</li>
+                                    <li class="li03 ">
+                                        十六强7胜方
+                                    </li>
+                                    <li class="li04">VS </li>
+                                    <li class="li05 line ">
+                                        十六强8胜方
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">宇宙竞技场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356426)">
+                                    <li class="li01 font14 line" style="font-size:14px;">八强</li>
+                                    <li class="li02 line">07/08<br>02:00</li>
+                                    <li class="li03 ">
+                                        十六强3胜方
+                                    </li>
+                                    <li class="li04">VS </li>
+                                    <li class="li05 line ">
+                                        十六强4胜方
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">菲什特奥林匹克体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+
+                        </div>
+
+                        <!--半决赛-->
+                        <div style="display: none;">
+                            <div class="groupMQiang margin-top10" id="div_half" style="display: none;"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div id="day_22" style="display:none;">
+                                <div class="grouptabTit margin-top56">
+                                    <span class="spanBox"><em class="font16">周三 07月11日</em><br>1场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356428)">
+                                    <li class="li01 font14 line" style="font-size:14px;">半决赛</li>
+                                    <li class="li02 line">07/11<br>02:00</li>
+                                    <li class="li03 ">
+                                        八强1胜方
+                                    </li>
+                                    <li class="li04">VS </li>
+                                    <li class="li05 line ">
+                                        八强2胜方
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">圣彼得堡体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+
+
+                            <div id="day_23" style="display:none;">
+                                <div class="grouptabTit margin-top56">
+                                    <span class="spanBox"><em class="font16">周四 07月12日</em><br>1场比赛</span>
+                                </div>
+
+                                <ul class="groupMUTd" onclick="toNewEvents(1356430)">
+                                    <li class="li01 font14 line" style="font-size:14px;">半决赛</li>
+                                    <li class="li02 line">07/12<br>02:00</li>
+                                    <li class="li03 ">
+                                        八强3胜方
+                                    </li>
+                                    <li class="li04">VS </li>
+                                    <li class="li05 line ">
+                                        八强4胜方
+                                    </li>
+                                    <li class="li06 line">&nbsp;射门 ----  <br>&nbsp;犯规 ----<br>&nbsp;控球 ----
+                                        <!-- <em class="GPMtip">20</em> --></li>
+                                    <li class="li07 line">卢日尼基体育场</li>
+                                    <li class="li08">
+                                        <p class="pList">
+                                            <span class="span01">胜平负</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+
+                                        <p class="pList borderB0">
+                                            <span class="span01">让球(--)</span> <span class="span02"></span> <span class="span02"></span> <span class="span02"></span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+
+                            <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+</div>
+<div class="modal fade" id='tipModal'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">确认</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+    <!-- jQuery -->
+
+    <script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/echarts-all.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/static/js/metisMenu.min.js"></script>
+        <script src="/static/js/jquery.dataTables.min.js"></script>
+
+    <script src='/static/js/dataTables.bootstrap.min.js'></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/js/jquery.validate.min.js"></script>
+    <script src="/static/js/sb-admin-2.js"></script>
+    <script src="https://cdn.bootcss.com/codemirror/5.32.0/codemirror.js"></script>
+    <link href="https://cdn.bootcss.com/codemirror/5.32.0/codemirror.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/codemirror/5.32.0/mode/shell/shell.js"></script>
+    <script src="https://cdn.bootcss.com/codemirror/5.32.0/mode/shell/shell.min.js"></script>
+    <script src="https://cdn.bootcss.com/codemirror/5.32.0/mode/python/python.js"></script>
+    <script src="https://cdn.bootcss.com/codemirror/5.32.0/mode/python/python.min.js"></script>
+    <script>
+    $('#tipModal').on('hide.bs.modal',function(){
+        location.reload()
+    })
+    $(function(){
+           var oLanguage={
+        "oAria": {
+            "sSortAscending": ": 升序排列",
+            "sSortDescending": ": 降序排列"
+        },
+        "oPaginate": {
+            "sFirst": "首页",
+            "sLast": "末页",
+            "sNext": "下页",
+            "sPrevious": "上页"
+        },
+        "sEmptyTable": "没有相关记录",
+        "sInfo": "第 _START_ 到 _END_ 条记录，共 _TOTAL_ 条",
+        "sInfoEmpty": "第 0 到 0 条记录，共 0 条",
+        "sInfoFiltered": "(从 _MAX_ 条记录中检索)",
+        "sInfoPostFix": "",
+        "sDecimal": "",
+        "sThousands": ",",
+        "sLengthMenu": "每页显示条数: _MENU_",
+        "sLoadingRecords": "正在载入...",
+        "sProcessing": "正在载入...",
+        "sSearch": "搜索:",
+        "sSearchPlaceholder": "",
+        "sUrl": "",
+        "sZeroRecords": "没有相关记录"
+    }
+    $.fn.dataTable.defaults.oLanguage=oLanguage; 
+    $('#dataTables-example').DataTable({
+            responsive: true,
+            // iDisplayLength:3
+    });
+    });
+    var pro = 10
+    var timer = null
+    timer = setInterval(function(){
+        if (pro<100) {
+
+        pro = pro*1.5
+
+        $('#progress-reboot').css('width',pro+'%')
+        }else{
+            clearInterval(timer)
+            $('#progress-reboot').addClass('hide')
+        }
+
+    },100)
+    var is_right = true
+    setInterval(function(){
+        var t = $('#alertText')
+        var left = parseInt(t.css('left'))
+        var val
+        if (is_right) {        
+            if (left<300) {
+                val = left+1
+                t.css('left',val)
+            }else{
+                is_right = false
+            }
+        }else{
+            if (left>250) {
+                val = left-1
+                t.css('left',val)
+            }else{
+                is_right = true
+            }
+
+        }
+        // if (left<300&&left>250) {
+        //     t.css('left',left+1)
+        // };
+    },50)
+    </script>
+
+
+<script>
+    var myTextarea = document.getElementById('editor');
+    var CodeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
+                mode: "shell",
+                lineNumbers: true,
+                matchBrackets: true,
+                autoCloseBrackets: true,
+                extraKeys: {"Ctrl": "autocomplete"},
+        }); 
+</script>
+
+
+
+
+</html>
