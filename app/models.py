@@ -85,5 +85,6 @@ class Soccers_result(models.Model):
 
 class Soccer_time(models.Model):
     day = models.CharField(max_length=100, verbose_name=u'具体日期')
+    count = models.CharField(max_length=50, verbose_name=u'比赛场次')
 
 
