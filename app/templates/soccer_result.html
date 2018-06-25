@@ -2839,4 +2839,325 @@ div.FixedHeader_Cloned table {
 
 
 
+
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    var level = $('#cur_level').val();
+                    var day = $('#cur_day').val();
+                    if(level==10){
+                        $(".groupMUMenu").children("li").eq(1).addClass("selected").siblings().removeClass("selected");
+                        $(".groupMUCont > div").eq(1).show().siblings().hide();
+                        getSchedule(level);
+                        $('#day_'+day).show();
+                    }else if(level==11){
+                        $(".groupMUMenu").children("li").eq(2).addClass("selected").siblings().removeClass("selected");
+                        $(".groupMUCont > div").eq(2).show().siblings().hide();
+                        getSchedule(level);
+                        $('#day_'+day).show();
+                    }else if(level==12){
+                        $(".groupMUMenu").children("li").eq(3).addClass("selected").siblings().removeClass("selected");
+                        $(".groupMUCont > div").eq(3).show().siblings().hide();
+                        getSchedule(level);
+                        $('#day_'+day).show();
+                    }else if(level==13 || level==14){
+                        $(".groupMUMenu").children("li").eq(4).addClass("selected").siblings().removeClass("selected");
+                        $(".groupMUCont > div").eq(4).show().siblings().hide();
+                        getSchedule(level);
+                        if(level==13){
+                            $('#day_25').hide();
+                            $('#day_24').show();
+                        }
+                        if(level==14){
+                            $('#day_25').show();
+                            $('#day_24').hide();
+                        }
+
+                    }
+
+
+                    $(".groupMUl > li").on("click", function () {//点击比赛日
+                        var level = parseInt($(this).attr("level"));
+                        var index = parseInt($(this).index());
+                        var matchs = $(this).attr("matchs");
+                        var height =  getHeight(index,matchs);
+                        $(this).addClass("selected").siblings().removeClass("selected");
+
+                        switch (level) {
+                            case 4://小组赛
+                                $('#div_group').children("div").siblings().show();
+                                $(".groupMUMenu").children("li").eq(0).addClass("selected").siblings().removeClass("selected");
+                                $(".groupMUCont > div").eq(0).show().siblings().hide();
+                                $("html, body").animate({
+                                    scrollTop: height+ "px"
+                                }, 1500);
+                                break;
+                            case 10://16强div_six
+                                $('#div_group').children("div").siblings().hide();//隐藏小组赛
+                                $(".groupMUMenu").children("li").eq(1).addClass("selected").siblings().removeClass("selected");
+                                $(".groupMUCont > div").eq(1).show().siblings().hide();
+                                getSchedule(level);
+                                $('#div_six').show();
+                                for (var i = 16; i <= 19; i++) {
+                                    $('#day_' + i).show();
+                                }
+                                $("html, body").animate({
+                                    scrollTop: height+ "px"
+                                }, 1500);
+                                break;
+                            case 11://八强
+                                $('#div_group').children("div").siblings().hide();//隐藏小组赛
+                                $(".groupMUMenu").children("li").eq(2).addClass("selected").siblings().removeClass("selected");
+                                $(".groupMUCont > div").eq(2).show().siblings().hide();
+                                getSchedule(level);
+                                $('#div_enity').show();
+                                for (var i = 20; i <= 21; i++) {
+                                    $('#day_' + i).show();
+                                }
+                                break;
+                            case 12://半决赛
+                                $('#div_group').children("div").siblings().hide();//隐藏小组赛
+                                $(".groupMUMenu").children("li").eq(3).addClass("selected").siblings().removeClass("selected");
+                                $(".groupMUCont > div").eq(3).show().siblings().hide();
+                                getSchedule(level);
+                                $('#div_half').show();
+                                for (var i = 22; i <= 23; i++) {
+                                    $('#day_' + i).show();
+                                }
+                                break;
+                            case 13://三四名决赛
+                                $('#div_group').children("div").siblings().hide();//隐藏小组赛
+                                $(".groupMUMenu").children("li").eq(4).addClass("selected").siblings().removeClass("selected");
+                                $(".groupMUCont > div").eq(4).show().siblings().hide();
+                                getSchedule(level);
+                                $('#div_final').show();
+                                for (var i = 24; i <= 25; i++) {
+                                    $('#day_' + i).show();
+                                }
+                                $('#day_' + (parseInt(index) + 1)).show();
+                                break;
+                            case 14://决赛
+                                $('#div_group').children("div").siblings().hide();//隐藏小组赛
+                                $(".groupMUMenu").children("li").eq(4).addClass("selected").siblings().removeClass("selected");
+                                $(".groupMUCont > div").eq(4).show().siblings().hide();
+                                getSchedule(level);
+                                $('#div_final').show();
+                                for (var i = 24; i <= 25; i++) {
+                                    $('#day_' + i).show();
+                                }
+                                $('#day_' + (parseInt(index) + 1)).show();
+                                break;
+                        }
+                    });
+                });
+
+                function getHeight(i,m){
+                    if(i==0){
+                        height  = 300;
+                    }
+                    if(i==1){
+                        height  = 460;
+                    }
+                    if(i==2){
+                        height  = 900;
+                    }
+                    if(i==3){
+                        height  = 1400;
+                    }
+                    if(i==4){
+                        height  = 1800;
+                    }
+                    if(i==5){
+                        height =2250;
+                    }
+                    if(i==6){
+                        height =2700;
+                    }
+                    if(i==7){
+                        height =3100;
+                    }
+                    if(i==8){
+                        height = 3500;
+                    }
+                    if( i==9){
+                        height =3900;
+                    }
+                    if( i==10){
+                        height =4300;
+                    }
+                    if( i==11){
+                        height =4700;
+                    }
+                    if(i==12){
+                        height=5100;
+                    }
+                    if(i==13){
+                        height=5500;
+                    }
+                    if(i==14){
+                        height=5900;
+                    }
+                    if(i>=15){
+                        height=350;
+                    }
+                    return height;
+                }
+
+
+
+                function getSchedule(l) {
+
+                    var url = 'getShedule.html?level=' + l;
+                    //var url = 'getShedule.do?level=' + l;
+                    //var url = 'schedule_'+l+".html";
+                    $.ajax({
+                        url: url,
+                        dataType: 'html',
+                        type: "get",
+                        success: function (data) {
+                            if (l == 10) {
+                                $('#div_six').html(data);
+                            } else if (l == 11) {
+                                $('#div_enity').html(data);
+                            } else if (l == 12) {
+                                $('#div_half').html(data);
+                            } else if (l == 13 || l == 14) {
+                                $('#div_final').html(data);
+                            }
+
+                        }
+                    });
+                }
+
+
+                var gMUMIndexF = $(".groupMUMenu li.selected").index();
+                $(".groupMUCont > div").eq(gMUMIndexF).show().siblings().hide();
+                $(".groupMUMenu li").on("click", function () {//点击赛事级别
+                    $(this).addClass("selected").siblings().removeClass("selected");
+                    var index = $(".groupMUMenu li").index(this);
+                    $(".groupMUCont > div").eq(index).show().siblings().hide();
+                    var idx = $('#ipt_index').val();
+                    if(index==0){
+                        $('#div_six').hide();
+                        $('#div_enity').hide();
+                        $('#div_half').hide();
+                        $('#div_final').hide();
+                        $('#div_group ul').show();
+                        $('#div_group div').siblings().show();
+
+                        if(idx!=null  && idx!='' && parseInt(idx)<=14){
+                            $('.groupMUl > li').eq(idx).addClass("selected").siblings().removeClass("selected");
+                        }else{
+                            $('.groupMUl > li').eq(0).addClass("selected").siblings().removeClass("selected");
+                        }
+                        var height =  getHeight(idx,null);
+                        $("html, body").animate({
+                            scrollTop: height+ "px"
+                        }, 1500);
+                    }else if(index==1){
+                        $('#div_group').hide();
+                        $('#div_enity').hide();
+                        $('#div_half').hide();
+                        $('#div_final').hide();
+                        getSchedule(10);
+                        $('#div_six').show();
+                        for (var i = 16; i <= 19; i++) {
+                            $('#day_' + i).show();
+                        }
+                        if(idx!=null  && idx!='' && (parseInt(idx)>14 && parseInt(idx)<19)){
+                            $('.groupMUl > li').eq(idx).addClass("selected").siblings().removeClass("selected");
+                        }else{
+                            $('.groupMUl > li').eq(15).addClass("selected").siblings().removeClass("selected");
+                        }
+                        $("html, body").animate({
+                            scrollTop: 350+ "px"
+                        }, 1500);
+                    }else if(index==2){
+                        $('#div_group').hide();
+                        $('#div_six').hide();
+                        $('#div_half').hide();
+                        $('#div_final').hide();
+                        getSchedule(11);
+                        $('#div_enity').show();
+                        for (var i = 20; i <= 21; i++) {
+                            $('#day_' + i).show();
+                        }
+                        if(idx!=null  && idx!='' && (parseInt(idx)>=19 && parseInt(idx)<21)){
+                            $('.groupMUl > li').eq(idx).addClass("selected").siblings().removeClass("selected");
+                        }else{
+                            $('.groupMUl > li').eq(19).addClass("selected").siblings().removeClass("selected");
+                        }
+                        $("html, body").animate({
+                            scrollTop: 350+ "px"
+                        }, 1500);
+                    }else if(index==3){
+                        $('#div_group').hide();
+                        $('#div_enity').hide();
+                        $('#div_six').hide();
+                        $('#div_final').hide();
+                        getSchedule(12);
+                        $('#div_half').show();
+                        for (var i = 22; i <= 23; i++) {
+                            $('#day_' + i).show();
+                        }
+                        if(idx!=null  && idx!='' && (parseInt(idx)>=21 && parseInt(idx)<24)){
+                            $('.groupMUl > li').eq(idx).addClass("selected").siblings().removeClass("selected");
+                        }else{
+                            $('.groupMUl > li').eq(21).addClass("selected").siblings().removeClass("selected");
+                        }
+                        $("html, body").animate({
+                            scrollTop: 350+ "px"
+                        }, 1500);
+                    }else if(index==4){
+                        $('#div_group').hide();
+                        $('#div_enity').hide();
+                        $('#div_six').hide();
+                        $('#div_half').hide();
+                        getSchedule(14);
+                        $('#div_final').show();
+                        $('#day_24').show();
+                        $('#day_25').show();
+                        $('.groupMUl > li').eq(23).addClass("selected").siblings().removeClass("selected");
+                        $("html, body").animate({
+                            scrollTop: 350+ "px"
+                        }, 1500);
+                    }
+                });
+
+                function toNewEvents(mId){//跳转事件页
+                    window.open("http://app.gooooal.com/sports/football/analysis/event.do?matchId="+mId+"&lang=cn");
+                }
+
+
+
+                var idx = $('#ipt_index').val();
+                if(idx!=null && idx!=''){
+                    var height =  getHeight(idx,null);
+                    $("html, body").animate({
+                        scrollTop: height+ "px"
+                    }, 1500);
+                }
+            </script>
+            <script type="text/javascript">
+                var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+                document.write(unescape("%3Cscript src='" + gaJsHost
+                    + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+
+
+                var _hmt = _hmt || [];
+                (function() {
+                    var hm = document.createElement("script");
+                    hm.src = "//hm.baidu.com/hm.js?2a216a1be7b09912ccdd518126ea6c19";
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(hm, s);
+                })();
+            </script><script src="./世界杯赛程赛果_files/ga.js.下载" type="text/javascript"></script>
+            <script type="text/javascript">
+                var pageTracker = _gat._getTracker("UA-1825341-1");
+                pageTracker._setDomainName("gooooal.com");
+                pageTracker._initData();
+                pageTracker._trackPageview();
+            </script>
+
+
+
 </html>
