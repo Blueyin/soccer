@@ -74,11 +74,16 @@ class Soccers_result(models.Model):
     score = models.CharField(max_length=100, verbose_name=u'比分')
     bname = models.CharField(max_length=100, verbose_name=u'球队B')
     space = models.CharField(max_length=100, verbose_name=u'场地')
+    day = models.CharField(max_length=100, verbose_name=u'具体日期')
 
     def __unicode__(self):
 	return self.group
 
     class Meta:
         verbose_name = u'战绩'
+
+
+class Soccer_time(models.Model):
+    day = models.CharField(max_length=100, verbose_name=u'具体日期')
 
 
