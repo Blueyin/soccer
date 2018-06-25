@@ -528,10 +528,18 @@ div.FixedHeader_Cloned table {
                                 <th>球队</th>
                                 <th>比分</th>
                                 <th>球队</th>
-                                <th>统计</th>
                                 <th>场地</th>
-                                <th>指数</th>
                                 </tr>
+                                {%for all_results in all_result%}
+                                <tr class="tr3">
+                                    <td class="td_one">{{all_results.group}}</td>
+                                    <td>{{all_results.time}}</td>
+                                    <td>{{all_results.aname}}</td>
+                                    <td>{{all_results.score}</td>
+                                    <td>{{all_results.aname}}</td>
+                                    <td>{{all_results.space}}</td>
+                                </tr>
+                                {%endfor%}
                                 </tbody>
                             </table>
                         </div>
@@ -656,7 +664,7 @@ div.FixedHeader_Cloned table {
     },50)
     </script>
 
-            
+
 
             
 
