@@ -61,7 +61,7 @@ class Soccer_groups(models.Model):
 
 
     def __unicode__(self):
-	return self.grouo
+	return self.group
 
     class Meta:
 	verbose_name = u'小组'
@@ -77,3 +77,6 @@ class Soccers_result(models.Model):
 
     def __unicode__(self):
 	return self.group
+
+    class Meta:
+        verbose_name = u'小组'
